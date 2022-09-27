@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -29,25 +29,35 @@ public class MovieService {
     public MovieOutDto addNewMovie(MovieInDto newMovie) {
         Movie movie = mapper.convertValue(newMovie, Movie.class);
         movie.setRate(RateType.ZERO);
-        return mapper.convertValue(movieRepository.save(movie), MovieOutDto.class);
+        Movie save = movieRepository.save(movie);
+        return mapper.convertValue(save, MovieOutDto.class);
+    }
+
+    public MovieOutDto updateMovie(Integer movieId, RateType rateNr) {
+        Movie fetchMovie = movieRepository.findById(movieId).filter(movie -> movie.getId().equals(movieId)).stream().findFirst().orElseThrow();
+        fetchMovie.setRate(rateNr);
+        return mapper.convertValue(movieRepository.save(fetchMovie), MovieOutDto.class);
     }
 
     public MovieOutDto searchMovieByTitle(String title) {
-        Optional<Movie> findFilmByTitle = movieRepository.findMovieByTitle(title);
+        return findMoviesByTiles(title).stream().findFirst().orElseThrow(() -> new NotFoundException(movieNotFound));
+    }
 
-        if (!findFilmByTitle.isPresent())
-            throw new NotFoundException(movieNotFound);
-
-        return mapper.convertValue(findFilmByTitle, MovieOutDto.class);
+    public List<MovieOutDto> findMoviesByTiles(String title) {
+        return movieRepository.findAllByTitleOrderByRateDescIdAsc(title)
+                .stream().map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     public MovieOutDto findMovieById(Integer movieId) {
-        Movie findMovieById = movieRepository.findById(movieId).orElseThrow(() -> new NotFoundException(movieNotFound));
-
-        return mapper.convertValue(findMovieById, MovieOutDto.class);
+        return movieRepository.findById(movieId).map(this::convertToDto).orElseThrow(() -> new NotFoundException(movieNotFound));
     }
 
     public List<MovieOutDto> fetchAllMovies() {
-        return mapper.convertValue(movieRepository.findAll(), List.class);
+        return movieRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    private MovieOutDto convertToDto(Movie movie) {
+        return mapper.convertValue(movie, MovieOutDto.class);
     }
 }

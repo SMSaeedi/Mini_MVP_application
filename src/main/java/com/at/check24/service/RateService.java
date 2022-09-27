@@ -1,9 +1,8 @@
 package com.at.check24.service;
 
-import com.at.check24.dto.MovieInDto;
+import com.at.check24.dto.MovieOutDto;
 import com.at.check24.dto.RateDto;
 import com.at.check24.enums.RateType;
-import com.at.check24.model.Movie;
 import com.at.check24.model.Rate;
 import com.at.check24.repository.RateRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +25,6 @@ public class RateService {
 
     public RateDto rateToMovie(Integer userId, Integer movieId, RateType rateNr) {
         userService.findUserById(userId);
-        movieService.findMovieById(movieId);
 
         Rate save = rateRepository.save(Rate.builder()
                 .movieId(movieId)
@@ -34,16 +32,8 @@ public class RateService {
                 .rate(rateNr)
                 .build());
 
-        Movie movie = Movie.builder()
-                .id(movieId)
-                .rate(rateNr)
-                .build();
-        movieService.addNewMovie(mapper.convertValue(movie, MovieInDto.class));
+        movieService.updateMovie(movieId, rateNr);
 
-        return RateDto.builder()
-                .movieId(save.getId())
-                .userId(save.getUserId())
-                .rate(save.getRate())
-                .build();
+        return mapper.convertValue(save, RateDto.class);
     }
 }
