@@ -30,4 +30,4 @@ service:
       notFound: no such movie found!
   user:
     exception:
-      notFound: no such movie found!
+      notFound: no such user found!
