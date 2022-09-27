@@ -22,8 +22,12 @@ public class UserService {
     }
 
     public UserDto findUserById(Integer userId) {
-        User findUserById = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(userNotFound));
+      return userRepository.findById(userId)
+              .map(this::convertToDto)
+              .orElseThrow(() -> new NotFoundException(userNotFound));
+    }
 
-        return mapper.convertValue(findUserById, UserDto.class);
+    private UserDto convertToDto(User movie) {
+        return mapper.convertValue(movie, UserDto.class);
     }
 }
