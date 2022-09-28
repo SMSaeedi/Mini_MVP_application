@@ -1,6 +1,5 @@
 package com.at.check24.service;
 
-import com.at.check24.dto.MovieOutDto;
 import com.at.check24.dto.RateDto;
 import com.at.check24.enums.RateType;
 import com.at.check24.model.Rate;
