@@ -1,6 +1,6 @@
 # Mini MVP App Service
 
-This is the README file for the account transaction Service application, explaining the environment variables used in the
+This is the README file for the Mini MVP Service application, explaining the environment variables used in the
 configuration.
 
 ## Environment Variables
