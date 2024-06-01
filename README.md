@@ -11,7 +11,7 @@ configuration.
 
 ### H2 Configuration
 - **Variable Name**: `check24`, `check24`, `http://localhost:9092/check24/h2`
-- **Description**: Configures the PostgreSQL datasource properties.
+- **Description**: Configures the H2 datasource properties.
 
 ### JPA Configuration
 - **Variable Name**: `FORMAT_SQL`
