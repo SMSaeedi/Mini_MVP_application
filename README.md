@@ -1,4 +1,4 @@
-# CapGemeni Service
+# Mini MVP App Service
 
 This is the README file for the account transaction Service application, explaining the environment variables used in the
 configuration.
