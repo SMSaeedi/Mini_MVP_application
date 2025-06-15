@@ -1,7 +1,7 @@
--- INSERT INTO movie (id, genre, title, directorId, storyBy, rate, summary)
--- VALUES (1, 5, 'Pride and Prejudice', 1, 'Jane Austen', 4, '---');
--- INSERT INTO movie (id, genre, title, directorId, storyBy, rate, summary)
--- VALUES (2, 4, 'Halloween', 3, '---', 2, '---');
+INSERT INTO movie (id, genre, title, director_id, story_by, rate, summary)
+VALUES (1, 5, 'Pride and Prejudice', 1, 'Jane Austen', 4, '---');
+INSERT INTO movie (id, genre, title, director_id, story_by, rate, summary)
+VALUES (2, 4, 'Halloween', 3, '---', 2, '---');
 
 INSERT INTO movie_users (id, name, job)
 VALUES (1, 'Mahsa saeedi', 2);

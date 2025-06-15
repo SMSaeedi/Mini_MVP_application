@@ -57,7 +57,7 @@ public class MovieTest {
     @Test
     public void findAllMovies() throws Exception {
         when(movieService.fetchAllMovies()).thenReturn(movies());
-        mockMvc.perform(get("/api/movies/"))
+        mockMvc.perform(get("/api/movies"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
