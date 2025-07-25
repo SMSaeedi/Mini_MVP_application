@@ -18,7 +18,7 @@
 
 	<properties>
 		<java.version>21</java.version>
-		<open.api.version>1.6.9</open.api.version>
+		<open.api.version>1.8.0</open.api.version>
 		<lombok.version>1.18.38</lombok.version>
 	</properties>
 
